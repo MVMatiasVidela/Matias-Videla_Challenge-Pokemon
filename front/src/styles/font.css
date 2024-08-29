@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Fontemon';
+  src: url('/fonts/fontemon.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  
+  
+}
+
+.bordered-text {
+  color: #1c4ad5;
+  font-family: '';
+  text-shadow: 
+    -1px -1px 0 rgb(255,215,0),  
+     1px -1px 0 rgb(255,215,0),  
+    -1px  1px 0 rgb(255,215,0),  
+     1px  1px 0 rgb(255,215,0); 
+}
