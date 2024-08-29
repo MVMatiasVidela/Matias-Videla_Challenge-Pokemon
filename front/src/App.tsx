@@ -1,18 +1,23 @@
-import React, { useState } from "react";
-import PokemonList from "./components/PokemonList";
-import Battle from "./components/Battle";
-import { IPokemon } from "./types";
+import PokemonList from "./components/pokemonList/PokemonList";
+import { Grid } from "@mui/material";
 
-const App: React.FC = () => {
-  const [selectedPokemon, setSelectedPokemon] = useState<IPokemon | null>(null);
+import title from "./assets/images/Battle-of-Pokemon-27-6-2024 (1).png";
 
+function App() {
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Pokemon Battle</h1>
-      <PokemonList onSelectPokemon={setSelectedPokemon} />
-      {selectedPokemon && <Battle selectedPokemon={selectedPokemon} />}
-    </div>
+    <>
+      <Grid container justifyContent="center">
+        <img 
+          src={title} 
+          alt="Battle of Pokemon" 
+          style={{ width: '55%' }}
+        />
+      </Grid>
+      <PokemonList />
+      
+    </>
   );
-};
+}
 
 export default App;
+

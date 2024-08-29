@@ -1,6 +1,5 @@
-// pokemon.controller.ts
-import { Controller, Get } from '@nestjs/common';
-import { PokemonService } from './pokemon.service';
+import { Controller, Get} from '@nestjs/common';
+import { PokemonService } from './pokemons.service';
 
 @Controller('pokemons')
 export class PokemonsController {

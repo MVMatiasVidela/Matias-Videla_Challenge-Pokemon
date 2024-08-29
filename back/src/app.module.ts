@@ -1,24 +1,19 @@
-// app.module.ts
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PokemonsModule } from './pokemon/pokemon.module';
+import { PokemonsModule } from './pokemons/pokemons.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Pokemon } from './pokemon/pokemon.entity';
-import { BattleModule } from './battle/battle.module';
-import { Battle } from './battle/battle.entity';
+import { Pokemon } from './pokemons/entities/pokemon.entity';
+import { BattleModule } from './battles/battles.module';
+import { Battle } from './battles/entities/battle.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'pokemon.sqlite',
-      entities: [Pokemon, Battle],
-      synchronize: true, 
-    }),
-    PokemonsModule,
-    BattleModule,
-  ],
+  imports: [TypeOrmModule.forRoot({
+    type: 'sqlite',
+    database:'challengeDB.sqlite',
+    entities: [Pokemon, Battle],
+    synchronize: true
+  }), PokemonsModule, BattleModule],
   controllers: [AppController],
   providers: [AppService],
 })

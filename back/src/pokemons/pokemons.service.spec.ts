@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PokemonService } from './pokemon.service';
+import { PokemonService } from './pokemons.service';
 
-describe('PokemonService', () => {
+
+describe('PokemonsService', () => {
   let service: PokemonService;
 
   beforeEach(async () => {

@@ -1,9 +1,8 @@
-// pokemon.service.ts
 import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pokemon } from './pokemon.entity';
+import { Pokemon } from './entities/pokemon.entity';
 import { Repository } from 'typeorm';
-import * as data from '../helpers/pokemon.json';
+import * as data from '../helpers/preload-pokemons-data.json';
 
 @Injectable()
 export class PokemonService implements OnModuleInit {
