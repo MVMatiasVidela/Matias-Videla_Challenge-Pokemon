@@ -12,7 +12,7 @@ const Footer = () => {
       padding="2em"
     >
       <Grid item>
-        <Typography>Copyright © Hecho con amor y pasion por Matias Videla</Typography>
+        <Typography>Copyright © Hecho con amor y pasión por Matias Videla</Typography>
       </Grid>
     </Grid>
   );
