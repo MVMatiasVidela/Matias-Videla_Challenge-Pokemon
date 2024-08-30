@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'Fontemon';
+  src: url('../public/fonts/fontemon.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  user-select: none;
+  line-height: 1.5;
+  font-family: sans-serif;
+  background-color: #fafafa;
+  color: black;
+  background-image: url("./assets/images/backgroundImg.jpg");
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: cover;
+}
+
+.fontemon-text {
+  font-family: 'Fontemon', sans-serif;
+  color: #045DA0; 
+  text-shadow: 
+    -1px -1px 0 #FFD700,   
+    1px -1px 0 #FFD700,    
+    -1px 1px 0 #FFD700,    
+    1px 1px 0 #FFD700;     
+}

@@ -1,47 +1,80 @@
-# El Challenge
+# Battle of pokemon Challenge Matias Videla
 
-La aplicación es una batalla de Pokémon. Cada uno tiene diferentes stats, como ataque y defensa, por ejemplo, 
-y tenemos que hacerlos batallar entre ellos.
+- Primero debe clonar el repositorio en una carpeta.
 
-## Objetivos de Backend
+### Instalar dependencias y levantar el BackEnd
 
-1. Implementar migraciones de DB, debe de popularse una tabla con los datos de los pokemon
-2. Implementar endpoint para listar todos los pokemon
-3. Implementar endpoint para hacerlos batallar
-4. Guardar los resultados de las batallas en una tabla
 
-## Objetivos del Frontend
+- Una vez abierto el VSC desde la consola posicionarse en la carpeta "back".
+- Correr el siguiente comando:
 
-1. Implementar la UI/UX que liste y seleccione los pokemon
-2. Implementar la Card del Pokemon que liste los stats
-3. Cuando de Inicio a la batalla, se debe escoger automáticamente y aleatoriamente un contrincante diferente y luego mostrar el resultado
-4. Implementar Responsividad básica.
-5. Conectar con el Backend
+```
+npm install
+```
 
-## Algoritmo de Batalla
+- En este caso no hace falta crear el archivo .env.
+- En la misma carpeta, correr el siguiente script:
 
-Para el cálculo de la batalla, ten en consideración lo siguiente:
+```
+npm run start
+```
 
-- El pokemon con la velocidad más alta hace el primer ataque, si son iguales, el pokemon con el ataque más alto va primero.
-- Para calcular el daño, resta la defensa del ataque (ataque-defensa). La diferencia es el daño. Si el ataque es igual o menor que la defensa el daño es 1.
-- El daño lo restas del HP.
-- Los pokemon pelearán por turnos. Todos los turnos serán calculados in el mismo request. Es por esto por lo que el endpoint debe retornar la data del ganador en la misma llamada.
-- El ganador es el que se reste el HP del enemigo a cero. 
-- NOTA: como adicional se podría implementar el sistema de tipos, pero no es requerido.
+### Instalar dependencias y levantar el FrontEnd
 
-## Tecnología a usar
+- Desde la consola posicionarse en la carpeta "front".
+- Correr el siguiente comando:
 
-Backend:
-- NestJs
-- Typeorm
-- Sqlite
+```
+npm install
+```
 
-Frontend:
-- React
-- MaterialUI
+- En este caso no hace falta crear el archivo .env.
+- En la misma carpeta, correr el siguiente script:
 
-## Modo de entrega
+```
+npm run dev
+```
 
-El código se debe de entregar en un repositorio público para ser revisado. Por favor adicionar un readme con instrucciones.
-# Matias-Videla_Challenge-Pokemon
-# Matias-Videla_Challenge-Pokemon
+### Levantar el proyecto en el navegador
+
+Ya realizados los pasos anteriores, abrir el navegador en la ruta:
+
+```
+http://localhost:5173/
+```
+
+### ¡A comenzar la batalla!
+
+- Elige tu pokemon favorito con las estadisticas que mas te gusten.
+- Una vez elegido, presiona el botón Start Battle.
+-Al azar se asignara un rival y luego verás el resultado de la batalla.
+
+### Tabla con el registro de las batallas
+
+- Instale la siguiente extensión de VSCode si aún no la tiene:
+
+```
+SQLite
+```
+
+- En la barra de búsqueda que se encuentra en la parte superior de VSCode, pegar la siguiente línea:
+
+```
+>SQLite: Open Database
+```
+
+- Seleccionar la base de datos destinada a este proyecto:
+
+```
+pokemonDB.sqlite
+```
+
+- Se abrirá una nueva pestaña en la parte inferior del explorador de archivos llamada "SQLITE EXPLORER".
+- Dar click sobre la base de datos "pokemonDB.sqlite".
+- Posicionarse sobre la tabla "battle".
+- Podrá ver el registro de batallas, con la información del ganador, del perdedor y los logs de la batalla.
+
+Cual quier duda o consulta  no duden en escribirme a través de e-mail o linkedIn.
+
+- https://www.linkedin.com/in/mvmatiasvidela/
+- matias.damian.vi@gmail.com

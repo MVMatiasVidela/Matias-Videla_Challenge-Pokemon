@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pokemon } from 'src/pokemons/entities/pokemon.entity';
 import { Repository } from 'typeorm';
-import { Battle } from './entities/battle.entity';
+import { Pokemon } from '../pokemons/pokemon.entity';
+import { Battle } from './battle.entity';
 
 @Injectable()
 export class BattleService {
@@ -13,35 +13,51 @@ export class BattleService {
     private readonly battleRepository: Repository<Battle>,
   ) {}
 
-  async startBattle(selectedPokemonId: string, opponentPokemonId: string): Promise<Battle> {
-    const selectedPokemon = await this.pokemonRepository.findOne({ where: { id: selectedPokemonId } });
-    const opponentPokemon = await this.pokemonRepository.findOne({ where: { id: opponentPokemonId } });
+  async startBattle(
+    selectedPokemonId: string,
+    opponentPokemonId: string,
+  ): Promise<Battle> {
+    const selectedPokemon = await this.pokemonRepository.findOne({
+      where: { id: selectedPokemonId },
+    });
+    const opponentPokemon = await this.pokemonRepository.findOne({
+      where: { id: opponentPokemonId },
+    });
 
     if (!selectedPokemon || !opponentPokemon) {
-      throw new Error('One or both Pokemons not found');
+      throw new NotFoundException('One or both Pokemons not found');
     }
 
-    let attacker = selectedPokemon;
-    let defender = opponentPokemon;
+    
+    const selectedPokemonCopy = { ...selectedPokemon };
+    const opponentPokemonCopy = { ...opponentPokemon };
 
-    if (selectedPokemon.speed < opponentPokemon.speed ||
-      (selectedPokemon.speed === opponentPokemon.speed && selectedPokemon.attack < opponentPokemon.attack)) {
-      attacker = opponentPokemon;
-      defender = selectedPokemon;
+    let attacker = selectedPokemonCopy;
+    let defender = opponentPokemonCopy;
+
+    if (
+      attacker.speed < defender.speed ||
+      (attacker.speed === defender.speed && attacker.attack < defender.attack)
+    ) {
+      attacker = opponentPokemonCopy;
+      defender = selectedPokemonCopy;
     }
 
     let battleLog = '';
 
-    while (selectedPokemon.hp > 0 && opponentPokemon.hp > 0) {
+    while (attacker.hp > 0 && defender.hp > 0) {
       const damage = Math.max(attacker.attack - defender.defense, 1);
       defender.hp -= damage;
       battleLog += `${attacker.name} attacks ${defender.name} for ${damage} damage. ${defender.name} has ${defender.hp} HP left.\n`;
 
+      
       [attacker, defender] = [defender, attacker];
     }
 
-    const winner = selectedPokemon.hp > 0 ? selectedPokemon : opponentPokemon;
-    const loser = selectedPokemon.hp > 0 ? opponentPokemon : selectedPokemon;
+    const winner =
+      selectedPokemonCopy.hp > 0 ? selectedPokemon : opponentPokemon;
+    const loser =
+      selectedPokemonCopy.hp > 0 ? opponentPokemon : selectedPokemon;
 
     const battle = this.battleRepository.create({
       winnerName: winner.name,
@@ -51,6 +67,7 @@ export class BattleService {
 
     return this.battleRepository.save(battle);
   }
+
   async findAllBattles(): Promise<Battle[]> {
     return this.battleRepository.find();
   }

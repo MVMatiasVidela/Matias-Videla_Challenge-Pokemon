@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import { Grid, Box, Typography } from "@mui/material";
-import { IPokemon } from "../../helpers/interfaces/types";
+import { IPokemon } from "../../types";
 
 interface PokemonItemProps {
   pokemon: IPokemon;
@@ -32,15 +32,14 @@ const Img = styled("img")(({ theme }) => ({
 }));
 
 const TextOverlay = styled(Box)(({ theme }) => ({
-  position: "absolute",
+  position: "relative",
   bottom: 0,
   left: 0,
   right: 0,
   padding: theme.spacing(1),
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
   color: "white",
   textAlign: "center",
-  zIndex: 2,
+  zIndex: 0,
 }));
 
 const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, onImageClick }) => {
@@ -49,7 +48,24 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, onImageClick }) => {
       <Box position="relative" display="block" textAlign="center">
         <Img src={pokemon.imageUrl} alt={pokemon.name} />
         <TextOverlay>
-          <Typography>{pokemon.name}</Typography>
+          <Typography
+            className="fontemon-text"
+            align="center"
+            variant="h4"
+            fontWeight="bold"
+            sx={{
+              fontSize: "2rem",
+              fontFamily: "Fontemon, sans-serif", 
+              "@media (max-width: 850px)": {
+                fontSize: "1.44rem",
+              },
+              "@media (max-width: 520px)": {
+                fontSize: "1rem",
+              },
+            }}
+          >
+            {pokemon.name}
+          </Typography>
         </TextOverlay>
       </Box>
     </Grid>

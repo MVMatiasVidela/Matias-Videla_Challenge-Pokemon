@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pokemon } from './entities/pokemon.entity';
 import { Repository } from 'typeorm';
+import { Pokemon } from './pokemon.entity';
 import * as data from '../helpers/preload-pokemons-data.json';
 
 @Injectable()

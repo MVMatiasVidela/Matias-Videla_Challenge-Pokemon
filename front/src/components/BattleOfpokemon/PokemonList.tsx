@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Button, Grid, Box, Typography, styled } from '@mui/material';
-import { IBattleResult, IPokemon } from '../../helpers/interfaces/types';
-import PokemonItem from './PokemonItem';
-import SelectedPokemonActions from './SelectedPokemonActions';
-import BattleResult from '../battleResult/BattleResult';
-import WaitingCard from './WaitingCard';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Button, Grid, Box, Typography, styled } from "@mui/material";
+import { IBattleResult, IPokemon } from "../../types";
+import PokemonItem from "./PokemonItem";
+import SelectedPokemonActions from "./SelectedPokemonActions";
+import BattleResult from "./BattleResult";
+import WaitingCard from "./WaitingCard";
 
 const PokemonList: React.FC = (): React.ReactElement => {
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
@@ -18,10 +18,10 @@ const PokemonList: React.FC = (): React.ReactElement => {
   useEffect(() => {
     const fetchPokemons = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/pokemons');
+        const response = await axios.get("http://localhost:3000/pokemons");
         setPokemons(response.data);
       } catch (err) {
-        setError('Error fetching data');
+        setError("Error fetching data");
       } finally {
         setLoading(false);
       }
@@ -39,9 +39,9 @@ const PokemonList: React.FC = (): React.ReactElement => {
   const animateOpponentPokemon = async () => {
     for (const pokemon of pokemons) {
       setOpponentPokemon(pokemon);
-      await new Promise(resolve => setTimeout(resolve, 200)); 
+      await new Promise((resolve) => setTimeout(resolve, 200));
     }
-    setOpponentPokemon(null); 
+    setOpponentPokemon(null);
   };
 
   const handleStartBattleClick = () => {
@@ -60,12 +60,13 @@ const PokemonList: React.FC = (): React.ReactElement => {
           opponentPokemonId: randomPokemon.id,
         };
 
-        axios.post('http://localhost:3000/battles', battleData)
-          .then(response => {
+        axios
+          .post("http://localhost:3000/battles", battleData)
+          .then((response) => {
             setBattleResult(response.data);
           })
-          .catch(error => {
-            console.error('Error starting battle:', error);
+          .catch((error) => {
+            console.error("Error starting battle:", error);
           });
       });
     }
@@ -75,48 +76,69 @@ const PokemonList: React.FC = (): React.ReactElement => {
   if (error) return <div>{error}</div>;
 
   const ResponsiveBox = styled(Box)(({ theme }) => ({
-    minHeight: '100px',
-    width: '300px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    [theme.breakpoints.down('lg')]: {
-      width: '210px', 
+    minHeight: "100px",
+    width: "300px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    [theme.breakpoints.down("lg")]: {
+      width: "210px",
     },
-    [theme.breakpoints.down('md')]: {
-      width: '147px', 
+    [theme.breakpoints.down("md")]: {
+      width: "147px",
     },
   }));
 
   const ResponsiveGridContainer = styled(Grid)(({ theme }) => ({
-    flexDirection: 'row',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column', 
+    flexDirection: "row",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
     },
   }));
 
   return (
     <main>
-      <Typography align='center' variant='h4' color="#045DA0" fontWeight="bold" sx={{
-    fontSize: '2.4rem', 
-    '@media (max-width: 850px)': {
-      fontSize: '1.44rem', 
-    },
-    '@media (max-width: 520px)': {
-      fontSize: '1rem', 
-    },
-  }}>Select your Pokemon</Typography>
-      <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-        {pokemons.map(pokemon => (
-          <PokemonItem 
-            key={pokemon.id} 
-            pokemon={pokemon} 
-            onImageClick={handleImageClick} 
+      <Typography
+      color="white"
+        align="center"
+        variant="h4"
+        fontWeight="bold"
+        sx={{
+          fontSize: "2.4rem",
+          
+          "@media (max-width: 850px)": {
+            fontSize: "1.44rem",
+          },
+          "@media (max-width: 520px)": {
+            fontSize: "1rem",
+          },
+        }}
+      >
+        Select your Pokemon
+      </Typography>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        {pokemons.map((pokemon) => (
+          <PokemonItem
+            key={pokemon.id}
+            pokemon={pokemon}
+            onImageClick={handleImageClick}
           />
         ))}
       </Grid>
       <Grid container justifyContent="center">
-        <Box minHeight="100px" minWidth="30%" display="flex" justifyContent="center" alignItems="center">
+        <Box
+          minHeight="100px"
+          minWidth="30%"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           {battleResult ? (
             <BattleResult battleResult={battleResult} />
           ) : (
@@ -124,18 +146,36 @@ const PokemonList: React.FC = (): React.ReactElement => {
           )}
         </Box>
       </Grid>
-      <ResponsiveGridContainer container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-        <ResponsiveBox minHeight="100px" width="300px" display="flex" justifyContent="center" alignItems="center">
+      <ResponsiveGridContainer
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <ResponsiveBox
+          minHeight="100px"
+          width="300px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           {selectedPokemon ? (
             <SelectedPokemonActions selectedPokemon={selectedPokemon} />
           ) : (
             <WaitingCard />
           )}
         </ResponsiveBox>
-        <Box minHeight="50px" minWidth="200px" display="flex" justifyContent="center" alignItems="center">
+        <Box
+          minHeight="50px"
+          minWidth="200px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           {selectedPokemon ? (
-            <Button 
-              onClick={handleStartBattleClick} 
+            <Button
+              onClick={handleStartBattleClick}
               className="start-battle-button"
               variant="contained"
               color="success"
@@ -146,7 +186,13 @@ const PokemonList: React.FC = (): React.ReactElement => {
             <Box minHeight="50px" minWidth="200px"></Box>
           )}
         </Box>
-        <ResponsiveBox minHeight="100px" width="300px" display="flex" justifyContent="center" alignItems="center">
+        <ResponsiveBox
+          minHeight="100px"
+          width="300px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           {opponentPokemon ? (
             <SelectedPokemonActions selectedPokemon={opponentPokemon} />
           ) : (
@@ -156,6 +202,6 @@ const PokemonList: React.FC = (): React.ReactElement => {
       </ResponsiveGridContainer>
     </main>
   );
-}
+};
 
 export default PokemonList;
